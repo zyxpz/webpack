@@ -4,12 +4,19 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
 const pkgEntry = require('../package.json').entry;
 
-let htmlWebpackPlugin;
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const miniCss = new MiniCssExtractPlugin({
+  filename: "[name].css",
+  chunkFilename: "[id].css"
+});
+
+let htmlWebpackPlugin = [];
 let plugins = [];
 
 for (const i in pkgEntry) {
-  htmlWebpackPlugin = new HtmlWebpackPlugin({
-    template: `./src/${i}.html`, // 指定产出的模板
+  htmlWebpackPlugin.push(new HtmlWebpackPlugin({
+    template: `./mock/${i}.html`, // 指定产出的模板
     filename: `${i}.html`, // 产出的文件名
     chunks: ['common', 'base'], // 在产出的HTML文件里引入哪些代码块
     hash: true, // 名称是否哈希值
@@ -17,7 +24,7 @@ for (const i in pkgEntry) {
     minify: { // 对html文件进行压缩
       removeAttributeQuotes: true // 移除双引号
     }
-  });
+  }))
 }
 
 const cleanWebpackPlugin = new CleanWebpackPlugin(); // 打包前先清空输出目录
@@ -26,7 +33,7 @@ const uglifyjsWebpackPlugin = new UglifyjsWebpackPlugin() // 压缩js
 
 function plugin(env) {
   if (env === 'mock') {
-    plugins.push(cleanWebpackPlugin, htmlWebpackPlugin);
+    plugins.push(cleanWebpackPlugin, ...htmlWebpackPlugin, miniCss);
   } else {
 
   }
@@ -35,4 +42,3 @@ function plugin(env) {
 }
 
 module.exports = plugin;
-

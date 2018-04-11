@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=mock ./node_modules/.bin/webpack-dev-server --config ./config/webpack.config.js --mode development",
     "pord": "cross-env NODE_ENV=pord ./node_modules/.bin/webpack-dev-server --config ./config/webpack.config.js --mode production",
     "build-dev": "cross-env NODE_ENV=mock ./node_modules/.bin/webpack --config ./config/webpack.config.js --mode development",
-    "build-pord": "cross-env NODE_ENV=pord ./node_modules/.bin/webpack --mode production",
+    "build-pord": "cross-env NODE_ENV=pord ./node_modules/.bin/webpack --config ./config/webpack.config.js --mode production",
     "test": "cross-env NODE_ENV=mock && node ./config/webpack.plugins"
   },
   "entry": {
@@ -32,6 +32,7 @@
     "html-withimg-loader": "^0.1.16",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
+    "mini-css-extract-plugin": "^0.4.0",
     "my-ip": "^1.1.1",
     "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.4",

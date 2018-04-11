@@ -6,6 +6,8 @@ const loader = require('./webpack.loader');
 const plugins = require('./webpack.plugins');
 const decserver = require('./webpack.devserver');
 
+const APP_ROOT = process.cwd();
+
 
 var myip = require('my-ip')();
 const pkg = require('../package.json');
@@ -21,8 +23,8 @@ if (NODE_ENV === 'mock') {
 const config = {
   entry: pkg.entry,
   output: {
-    filename: '[name].[hash].js',
-    path: __dirname + '../dist',
+    filename: '[name].js',
+    path: path.resolve(APP_ROOT, 'dist'),
     publicPath: '/'
   },
   module: loader,

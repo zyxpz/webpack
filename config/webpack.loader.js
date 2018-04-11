@@ -1,8 +1,8 @@
 const path = require('path');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractCSS = new ExtractTextPlugin('stylesheets/[name]-one.css');
-const extractLESS = new ExtractTextPlugin('stylesheets/[name]-two.css');
+
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 const loader = {
@@ -24,10 +24,17 @@ const loader = {
     },
     {
       test: /\.css$/,
-      loader: ['style-loader', 'css-loader']
+      use: [
+        MiniCssExtractPlugin.loader,
+        "css-loader"
+      ]
     }, {
       test: /\.less$/,
-      loader: ['style-loader', 'css-loader', 'less-loader']
+      use: [
+        MiniCssExtractPlugin.loader,
+        "css-loader",
+        "less-loader"
+      ]
     }
   ]
 }

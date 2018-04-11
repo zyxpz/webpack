@@ -7,9 +7,8 @@ let devservers = {
 function devserver(params) {
   const {
     env = 'mock',
-      localhost = 'http://127.0.0.1'
+      localhost = 'localhost'
   } = params;
-  console.log(localhost, 111);
   if (env === 'mock') {
     return devservers = {
       contentBase: path.resolve(__dirname, 'dist'), // 配置开发服务运行时的文件根目录
