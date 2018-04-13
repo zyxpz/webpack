@@ -1,10 +1,24 @@
 const path = require('path');
-
+const APP_ROOT = process.cwd();
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 const loader = {
   rules: [{
+      test: /\.jsx?$/,
+      exclude: [
+        /**
+         * 在node_modules的文件不被babel理会
+         */
+        path.resolve(APP_ROOT, 'node_modules'),
+      ],
+      use: [{
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true // 启用编译缓存
+        }
+      }]
+    }, {
       test: /\.css$/,
       use: ['style-loader', 'css-loader'],
       include: path.join(__dirname, './src'),
@@ -33,6 +47,10 @@ const loader = {
         "css-loader",
         "less-loader"
       ]
+    },
+    {
+      test: /\.json$/i,
+      use: 'json-loader'
     }
   ]
 }
